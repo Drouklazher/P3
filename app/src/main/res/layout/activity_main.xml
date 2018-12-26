@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/smiley_super_happy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/smiley_super_happy"
+        android:background="#fff9ec4f"/>
+
+    <ImageView
+        android:id="@+id/smiley_happy"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/smiley_happy"
+        android:background="#ffb8e986" />
+
+    <ImageView
+        android:id="@+id/smiley_normal"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/smiley_normal"
+        android:background="#a5468ad9" />
+
+    <ImageView
+        android:id="@+id/smiley_disappointed"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/smiley_disappointed"
+        android:background="#ff9b9b9b" />
+
+    <ImageView
+        android:id="@+id/smiley_sad"
+        android:visibility="invisible"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@mipmap/smiley_sad"
+        android:background="#ffde3c50" />
+
+
+
+</android.support.constraint.ConstraintLayout>
