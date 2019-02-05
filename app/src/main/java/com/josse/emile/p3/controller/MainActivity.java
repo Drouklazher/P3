@@ -142,7 +142,11 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         }
         updateScreen(mMoodBank.getMood());
         //todo persister le mood
-        
+        final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
+        dailyMood.setDailyMood(mMoodBank.getMood());
+        saveObj.saveMood(dailyMood);
+
+
         return false;
     }
 
