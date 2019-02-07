@@ -1,7 +1,7 @@
 package com.josse.emile.p3.controller;
 
-
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.GestureDetectorCompat;
@@ -14,8 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 import com.josse.emile.p3.R;
 import com.josse.emile.p3.model.DAO;
 import com.josse.emile.p3.model.Mood;
@@ -77,11 +75,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         dailyMood.setMessage(input.getText().toString());
                                         saveObj.saveMood(dailyMood);
-
-
-                                        //DAO saveObj = new DAO(LocalDateTime.now().toString().split("T")[0], (String)(MainActivity.this,mJson +"//--||"+ input.getText());
-
-                                        //Toast.makeText(MainActivity.this,mJson +"//--||"+ input.getText() + LocalDateTime.now().toString().split("T")[0],Toast.LENGTH_LONG).show();
                                     }
                                 });
 
@@ -95,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(historyActivity);
                 Toast.makeText(MainActivity.this, "clicked history", Toast.LENGTH_SHORT).show();
             }
         });
@@ -141,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             return true;
         }
         updateScreen(mMoodBank.getMood());
-        //todo persister le mood
         final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
         dailyMood.setDailyMood(mMoodBank.getMood());
         saveObj.saveMood(dailyMood);

@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 
 import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DAO {
     private SharedPreferences mSharedPreferences;
 
@@ -19,6 +22,7 @@ public class DAO {
         String moodPojoJsoon = gson.toJson(mood);
         mSharedPreferences.edit().putString("" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear(), moodPojoJsoon).apply();
     }
+
     public MoodPojo retrieveMoodPojo(){
         return retrieveMoodPojo(0);
     }
@@ -26,6 +30,14 @@ public class DAO {
 
         String moodPojoJson = mSharedPreferences.getString("" + LocalDate.now().minusDays(nbDays).getYear() +LocalDate.now().minusDays(nbDays).getDayOfYear(), null);
         return new Gson().fromJson(moodPojoJson,MoodPojo.class);
+    }
+
+    public List<MoodPojo> retrieveWeekly(){
+        List<MoodPojo> weeklyMood = new ArrayList<>();
+        for (int i = 1; i <= 7; i++){
+            weeklyMood.add(retrieveMoodPojo(i));
+        }
+        return weeklyMood;
     }
 
 }
