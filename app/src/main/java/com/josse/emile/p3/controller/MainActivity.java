@@ -25,7 +25,7 @@ import org.threeten.bp.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
     GestureDetectorCompat mGestureDetector;
-    MoodBank mMoodBank = new MoodBank();
+    Mood mMood ;
     DAO saveObj ;
 
     @Override
@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         saveObj = new DAO(this);
+        if (saveObj.retrieveMoodPojo() == null){
+            mMood = Mood.SUPER_HAPPY;
+        }else{
+            mMood = saveObj.retrieveMoodPojo().getDailyMood();
+        }
 
 
         View layout = findViewById(R.id.main);
@@ -125,19 +130,19 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onFling(MotionEvent previousEvent, MotionEvent currentEvent, float velocityX, float velocityY) {
         if (velocityY > 0){
-            Toast.makeText(MainActivity.this, mMoodBank.getMood().toString(), Toast.LENGTH_SHORT).show();
-            mMoodBank.moveMoodScreen(false);
-            updateScreen(mMoodBank.getMood());
+            Toast.makeText(MainActivity.this, mMood.toString(), Toast.LENGTH_SHORT).show();
+            mMood = mMood.moveMoodScreen(false);
+            updateScreen(mMood);
             return true;
         }else if (velocityY < 0){
-            Toast.makeText(MainActivity.this, mMoodBank.getMood().toString(), Toast.LENGTH_SHORT).show();
-            mMoodBank.moveMoodScreen(true);
-            updateScreen(mMoodBank.getMood());
+            Toast.makeText(MainActivity.this, mMood.toString(), Toast.LENGTH_SHORT).show();
+            mMood =mMood.moveMoodScreen(true);
+            updateScreen(mMood);
             return true;
         }
-        updateScreen(mMoodBank.getMood());
+        updateScreen(mMood);
         final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
-        dailyMood.setDailyMood(mMoodBank.getMood());
+        dailyMood.setDailyMood(mMood);
         saveObj.saveMood(dailyMood);
 
 

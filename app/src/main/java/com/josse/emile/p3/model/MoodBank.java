@@ -3,20 +3,10 @@ package com.josse.emile.p3.model;
 public class MoodBank {
 
     private Mood mMood;
-    private int mMoodScreen;
 
     public MoodBank(){
         this.mMood = Mood.SUPER_HAPPY;
-        this.mMoodScreen = 1;
     }
-
-    public void setMood(Mood mood) {
-        this.mMood = mood;
-    }
-
-    /*public void setMoodScreen(int moodScreen) {
-        this.mMoodScreen = moodScreen;
-    }*/
 
     public Mood getMood() {
         return this.mMood;

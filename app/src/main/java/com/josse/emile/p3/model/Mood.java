@@ -30,4 +30,22 @@ public enum Mood {
     public int getSmileyRes() {
         return smileyRes;
     }
+
+    public Mood moveMoodScreen(boolean wayUp){
+        int actualOrd =  this.ordinal();
+
+        if (wayUp){
+            actualOrd++;
+        }else {
+            actualOrd--;
+        }
+
+        if (actualOrd < 0){
+            actualOrd = 0;
+        }else if (actualOrd > Mood.values().length - 1){
+            actualOrd = Mood.values().length - 1;
+        }
+
+        return (Mood.values()[actualOrd]);
+    }
 }
