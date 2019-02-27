@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">P3</string>
+    <string name="comment_confirmation_message">Are you sure, You wanted to make decision</string>
 </resources>

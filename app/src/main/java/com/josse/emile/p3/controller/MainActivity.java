@@ -17,13 +17,13 @@ import android.widget.Toast;
 import com.josse.emile.p3.R;
 import com.josse.emile.p3.model.DAO;
 import com.josse.emile.p3.model.Mood;
-import com.josse.emile.p3.model.MoodBank;
 import com.josse.emile.p3.model.MoodPojo;
 
 import org.threeten.bp.LocalDateTime;
 
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+    private static final String SPLIT_CHAR = "T";
     GestureDetectorCompat mGestureDetector;
     Mood mMood ;
     DAO saveObj ;
@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         saveObj = new DAO(this);
+        //todo pauser ça dans le onResume
         if (saveObj.retrieveMoodPojo() == null){
             mMood = Mood.SUPER_HAPPY;
         }else{
             mMood = saveObj.retrieveMoodPojo().getDailyMood();
         }
-
 
         View layout = findViewById(R.id.main);
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         smiley.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(MainActivity.this, LocalDateTime.now().toString().split("T")[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, LocalDateTime.now().toString().split(SPLIT_CHAR)[0], Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -65,16 +65,19 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, LocalDateTime.now().toString().split("T")[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, LocalDateTime.now().toString().split(SPLIT_CHAR)[0], Toast.LENGTH_SHORT).show();
 
                 final EditText input = new EditText(MainActivity.this);
                 final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
+                if (!saveObj.firstDateExist()){
+                    saveObj.saveFirstDate();
+                }
                 input.setText(dailyMood.getMessage());
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                 alertDialogBuilder.setView(input);
-                alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
-                        alertDialogBuilder.setPositiveButton("yes",
+                alertDialogBuilder.setMessage(R.string.comment_confirmation_message);
+                        alertDialogBuilder.setPositiveButton(android.R.string.ok,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {

@@ -17,6 +17,14 @@ public class DAO {
         mSharedPreferences = context.getSharedPreferences("SavedMood", Context.MODE_PRIVATE);
     }
 
+    public void saveFirstDate(){
+        mSharedPreferences.edit().putString("firstDate","" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear()).apply();
+    }
+
+    public boolean firstDateExist(){
+        return (mSharedPreferences.contains("firstDate"));
+    }
+
     public void saveMood(MoodPojo mood){
         final Gson gson = new Gson();
         String moodPojoJsoon = gson.toJson(mood);
@@ -39,5 +47,4 @@ public class DAO {
         }
         return weeklyMood;
     }
-
 }
