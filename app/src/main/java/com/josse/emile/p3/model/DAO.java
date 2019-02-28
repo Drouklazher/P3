@@ -21,8 +21,17 @@ public class DAO {
         mSharedPreferences.edit().putString("firstDate","" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear()).apply();
     }
 
+
     public boolean firstDateExist(){
         return (mSharedPreferences.contains("firstDate"));
+    }
+
+    public String retrieveFirstDate(){
+        if (firstDateExist()) {
+            return mSharedPreferences.getString("firstDate", null);
+        }else{
+            return "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();
+        }
     }
 
     public void saveMood(MoodPojo mood){
@@ -34,6 +43,7 @@ public class DAO {
     public MoodPojo retrieveMoodPojo(){
         return retrieveMoodPojo(0);
     }
+
     public MoodPojo retrieveMoodPojo(int nbDays){
 
         String moodPojoJson = mSharedPreferences.getString("" + LocalDate.now().minusDays(nbDays).getYear() +LocalDate.now().minusDays(nbDays).getDayOfYear(), null);
@@ -41,10 +51,18 @@ public class DAO {
     }
 
     public List<MoodPojo> retrieveWeekly(){
-        List<MoodPojo> weeklyMood = new ArrayList<>();
-        for (int i = 1; i <= 7; i++){
-            weeklyMood.add(retrieveMoodPojo(i));
+        List<MoodPojo> sevenLastMood = new ArrayList<>();
+        String firstDate =  retrieveFirstDate();
+        String currentDate = "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();
+        int i = 0;
+
+        while(!(currentDate.equals(firstDate))&&(sevenLastMood.size()<6 )){
+            currentDate = "" + LocalDate.now().minusDays(i).getYear() +LocalDate.now().minusDays(i).getDayOfYear();
+            if (mSharedPreferences.contains(currentDate)){
+                sevenLastMood.add(retrieveMoodPojo(i));
+            }
+            i++;
         }
-        return weeklyMood;
+        return sevenLastMood;
     }
 }
