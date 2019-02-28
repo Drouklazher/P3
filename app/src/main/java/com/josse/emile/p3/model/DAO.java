@@ -50,7 +50,7 @@ public class DAO {
         return new Gson().fromJson(moodPojoJson,MoodPojo.class);
     }
 
-    public List<MoodPojo> retrieveWeekly(){
+    public List<MoodPojo> retrieveSevenLastMoods(){
         List<MoodPojo> sevenLastMood = new ArrayList<>();
         String firstDate =  retrieveFirstDate();
         String currentDate = "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();

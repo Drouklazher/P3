@@ -2,90 +2,95 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/history_cl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.HistoryActivity"
-    android:id="@+id/main">
+    tools:context=".controller.HistoryActivity">
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDayOne"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        tools:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDayTwo"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_weight="1" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDayTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        tools:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDayThree"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDayThree"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDayFour"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_weight="1" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDayFour"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDayFive"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDayFive"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDaySix"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDaySix"
+        tools:background="@color/violet_purple"
+        tools:width ="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        tools:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/historyDaySeven"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/historyDaySeven"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="blub"
+        app:layout_constraintBottom_toTopOf="@+id/fullHistoryButton"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
-        android:layout_width="match_parent"
+        android:id="@+id/fullHistoryButton"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/fullHistoryButton"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent=".125"
-        app:layout_constraintVertical_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/historyDayTwo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDayOne"/>
-
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/historyDayThree"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDayTwo"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/historyDayFour"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDayThree"
-        app:layout_constraintVertical_weight="1"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/historyDayFive"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDayFour"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/historyDaySix"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDayFive"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/historyDaySeven"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDaySix"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:text="blub"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent=".125"
-        app:layout_constraintBottom_toTopOf="@+id/fullHistoryButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/historyDaySeven"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
