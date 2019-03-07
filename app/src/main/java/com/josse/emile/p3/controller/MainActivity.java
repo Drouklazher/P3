@@ -13,14 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.josse.emile.p3.R;
 import com.josse.emile.p3.model.DAO;
 import com.josse.emile.p3.model.Mood;
 import com.josse.emile.p3.model.MoodPojo;
 
-import org.threeten.bp.LocalDateTime;
 
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, LocalDateTime.now().toString().split(SPLIT_CHAR)[0], Toast.LENGTH_SHORT).show();
 
                 final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
                 final EditText input = new EditText(MainActivity.this);
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             public void onClick(View v) {
                 Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(historyActivity);
-                Toast.makeText(MainActivity.this, "clicked history", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -147,19 +143,18 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onFling(MotionEvent previousEvent, MotionEvent currentEvent, float velocityX, float velocityY) {
         if (velocityY > 0) {
-            Toast.makeText(MainActivity.this, mMood.toString(), Toast.LENGTH_SHORT).show();
             mMood = mMood.moveMoodScreen(false);
-            return true;
+            updateScreen(mMood);
         } else if (velocityY < 0) {
-            Toast.makeText(MainActivity.this, mMood.toString(), Toast.LENGTH_SHORT).show();
             mMood = mMood.moveMoodScreen(true);
-            return true;
+            updateScreen(mMood);
         }
-        updateScreen(mMood);
-        final MoodPojo dailyMood = saveObj.retrieveMoodPojo();
-        dailyMood.setDailyMood(mMood);
+        final MoodPojo dailyMood = new MoodPojo(mMood,"");
+        if(saveObj.retrieveMoodPojo().hasMessage()){
+            dailyMood.setMessage(saveObj.retrieveMoodPojo().getMessage());
+        }
         saveObj.saveMood(dailyMood);
-        return false;
+        return true;
     }
 
     public void updateScreen(@NonNull Mood mood) {

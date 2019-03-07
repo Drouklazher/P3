@@ -25,6 +25,5 @@ public class MoodPojo {
         return message;
     }
 
-
-
+    public boolean hasMessage(){return (!"".equals(message));}
 }
