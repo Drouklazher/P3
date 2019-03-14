@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         super.onResume();
         if (saveObj.retrieveMoodPojo() == null) {
             mMood = Mood.SUPER_HAPPY;
+            saveObj.saveMood(new MoodPojo(mMood,""));
         } else {
             mMood = saveObj.retrieveMoodPojo().getDailyMood();
         }
