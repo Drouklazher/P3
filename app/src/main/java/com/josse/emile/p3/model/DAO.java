@@ -2,6 +2,7 @@ package com.josse.emile.p3.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -71,7 +72,7 @@ public class DAO {
         String currentDate = "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();
         int i = 1;
 
-        while(!(currentDate.equals(firstDate))&&(sevenLastMood.size()<6 )){
+        while(!(currentDate.equals(firstDate))&&(sevenLastMood.size()<7 )){
             currentDate = "" + LocalDate.now().minusDays(i).getYear() + LocalDate.now().minusDays(i).getDayOfYear();
             if (mSharedPreferences.contains(currentDate)){
                 sevenLastMood.add(retrieveMoodPojo(i));
@@ -86,7 +87,7 @@ public class DAO {
         String currentDate = "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();
         int i = 1;
 
-        while(!(currentDate.equals(firstDate))&&(sevenLastMood.size()<6 )){
+        while(!(currentDate.equals(firstDate)) && (sevenLastMood.size()<7 )){
             currentDate = "" + LocalDate.now().minusDays(i).getYear() + LocalDate.now().minusDays(i).getDayOfYear();
             if (mSharedPreferences.contains(currentDate)){
                 sevenLastMood.add(i);

@@ -61,6 +61,7 @@ public class HistoryActivity extends AppCompatActivity {
             displayMood(moodPojo, textView, i, mDaysDifList.get(i));
 
         }
+        Toast.makeText(HistoryActivity.this, ""+sevenMoods.size(),Toast.LENGTH_SHORT).show();
     }
 
     private void displayMood(MoodPojo mood, TextView moodLine,final int messageIndex, int texNbDays){
