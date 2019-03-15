@@ -27,7 +27,8 @@ import java.util.List;
 public class HistoryActivity extends AppCompatActivity {
     private ConstraintLayout mRoot;
     private DAO mDAO ;
-    private List<String> mMoodMessageList ;
+    private List<String> mMoodMessageList;
+    private List<Integer> mDaysDifList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +37,38 @@ public class HistoryActivity extends AppCompatActivity {
         mRoot = findViewById(R.id.history_cl_main);
         mDAO = new DAO(this);
         mMoodMessageList = new ArrayList<>();
+        mDaysDifList = new ArrayList<>();
+        mDaysDifList = mDAO.retrieveSevenLastMoodsDayDif();
         updateHistory(mDAO.retrieveSevenLastMoods());
-        final Button mButton = findViewById(R.id.fullHistoryButton);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        final Button mButtonBack = findViewById(R.id.history_but_back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//TODO do the full history here, not the back button
-                Intent mainyActivity = new Intent( HistoryActivity.this,MainActivity.class);
-                startActivity(mainyActivity);
+                Intent mainActivity = new Intent( HistoryActivity.this,MainActivity.class);
+                startActivity(mainActivity);
             }
         });
 
     }
 
     private void updateHistory(List<MoodPojo> sevenMoods){
-        for (int i = 0; i < mRoot.getChildCount() - 1 && i < sevenMoods.size(); i++) {//-1 because we don't want to iterate on the button wich is also a child of the constraint layout
+        for (int i = 0; i < mRoot.getChildCount() - 2 && i < sevenMoods.size(); i++) {//-2 because we don't want to iterate on the buttonw wich are also childs of the constraint layout
 
             MoodPojo moodPojo;
             AppCompatTextView textView = (AppCompatTextView)mRoot.getChildAt(i);
             moodPojo = sevenMoods.get(i);
             mMoodMessageList.add(moodPojo.getMessage());
-            displayMood(moodPojo, textView, i);
+            displayMood(moodPojo, textView, i, mDaysDifList.get(i));
 
         }
     }
 
-    private void displayMood(MoodPojo mood, TextView moodLine, final int messageIndex){
+    private void displayMood(MoodPojo mood, TextView moodLine,final int messageIndex, int texNbDays){
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(mRoot);
             moodLine.setBackgroundColor( getResources().getColor(mood.getDailyMood().getColorRes()));
             constraintSet.constrainPercentWidth(moodLine.getId(),mood.getDailyMood().getSizeRes());
+            moodLine.setText(String.format(getResources().getQuantityString(R.plurals.numbers_days,texNbDays),texNbDays));
         if (mood.hasMessage()){
             moodLine.setCompoundDrawablesWithIntrinsicBounds(null,null, ContextCompat.getDrawable(moodLine.getContext(),R.drawable.ic_comment_black_48px),null);
             moodLine.setClickable(true);

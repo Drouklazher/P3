@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">P3</string>
     <string name="comment_confirmation_message">Type the message you want </string>
+    <string name="no_mood">No mood </string>
+    <string name="back">Back</string>
+    <string name="full_history">Full History</string>
+    <!--<string name="numbers_days">%d days ago</string>-->
+    <plurals name="numbers_days">
+        <item quantity="one">yesterday</item>
+        <item quantity="two">%d days ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
 </resources>
