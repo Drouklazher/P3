@@ -41,11 +41,19 @@ public class HistoryActivity extends AppCompatActivity {
         mDaysDifList = mDAO.retrieveSevenLastMoodsDayDif();
         updateHistory(mDAO.retrieveSevenLastMoods());
         final Button mButtonBack = findViewById(R.id.history_but_back);
+        final Button mButtonFullHistory = findViewById(R.id.history_but_fullHistory);
         mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//TODO do the full history here, not the back button
+            public void onClick(View v) {
                 Intent mainActivity = new Intent( HistoryActivity.this,MainActivity.class);
                 startActivity(mainActivity);
+            }
+        });
+        mButtonFullHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fullHistoryActivity = new Intent( HistoryActivity.this,FullHistoryActivity.class);
+                startActivity(fullHistoryActivity);
             }
         });
 
@@ -61,7 +69,6 @@ public class HistoryActivity extends AppCompatActivity {
             displayMood(moodPojo, textView, i, mDaysDifList.get(i));
 
         }
-        Toast.makeText(HistoryActivity.this, ""+sevenMoods.size(),Toast.LENGTH_SHORT).show();
     }
 
     private void displayMood(MoodPojo mood, TextView moodLine,final int messageIndex, int texNbDays){

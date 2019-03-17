@@ -2,14 +2,15 @@ package com.josse.emile.p3.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAO {
     private SharedPreferences mSharedPreferences;
@@ -47,14 +48,14 @@ public class DAO {
         mSharedPreferences.edit().putString("" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear(), moodPojoJsoon).apply();
     }
 
-    public int dayDifference(LocalDate dayHigh, LocalDate dayLow){
+    /*public int dayDifference(LocalDate dayHigh, LocalDate dayLow){
         int i = 0;
         while(dayHigh.equals(dayLow)){
             dayHigh = dayHigh.minusDays(1);
             i++;
         }
         return i;
-    }
+    }*/
 
     public MoodPojo retrieveMoodPojo(){
         return retrieveMoodPojo(0);
@@ -81,7 +82,9 @@ public class DAO {
         }
         return sevenLastMood;
 
-    }public List<Integer> retrieveSevenLastMoodsDayDif(){
+    }
+
+    public List<Integer> retrieveSevenLastMoodsDayDif(){
         List<Integer> sevenLastMood = new ArrayList<>();
         String firstDate =  retrieveFirstDate();
         String currentDate = "" + LocalDate.now().getYear() + LocalDate.now().getDayOfYear();
@@ -95,5 +98,20 @@ public class DAO {
             i++;
         }
         return sevenLastMood;
+    }
+
+    public HashMap retieveAllProportionMap(){
+        Map<String,?> allMood = mSharedPreferences.getAll();
+        HashMap<Mood,Integer> MoodMap = new HashMap<>();
+        Mood iterateMood;
+        for (Map.Entry entry: allMood.entrySet()){
+            iterateMood = (new Gson().fromJson((String)entry.getValue(),MoodPojo.class)).getDailyMood();
+            if (MoodMap.containsKey(iterateMood)){
+                MoodMap.put(iterateMood,MoodMap.get(iterateMood)+1);
+            }else{
+                MoodMap.put(iterateMood,1);
+            }
+        }
+        return MoodMap;
     }
 }
