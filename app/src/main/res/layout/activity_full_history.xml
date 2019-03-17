@@ -9,9 +9,22 @@
 
     <lecho.lib.hellocharts.view.PieChartView
         android:id="@+id/fullHistory_pcv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/fullHistory_cl_main"
-        app:layout_constraintLeft_toLeftOf="@+id/fullHistory_cl_main"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/fullHistory_but_Back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/fullHistory_but_Back"
+        android:text="@string/back"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"/>
 
 </android.support.constraint.ConstraintLayout>

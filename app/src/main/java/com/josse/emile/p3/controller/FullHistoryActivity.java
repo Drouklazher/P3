@@ -1,7 +1,10 @@
 package com.josse.emile.p3.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.josse.emile.p3.R;
 import com.josse.emile.p3.model.DAO;
@@ -26,6 +29,14 @@ public class FullHistoryActivity extends AppCompatActivity {
         mChart = findViewById(R.id.fullHistory_pcv);
         mDAO = new DAO(this);
         updateChart(mDAO.retieveAllProportionMap());
+        final Button mButtonBack = findViewById(R.id.fullHistory_but_Back);
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fullHistoryActivity = new Intent( FullHistoryActivity.this,HistoryActivity.class);
+                startActivity(fullHistoryActivity);
+            }
+        });
     }
 
     private void updateChart(HashMap<Mood,Integer> colorsOccurence){
