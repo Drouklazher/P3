@@ -1,5 +1,6 @@
 package com.josse.emile.p3.controller;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -22,13 +23,13 @@ import com.josse.emile.p3.model.MoodPojo;
 
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
-    private static final String SPLIT_CHAR = "T";
     GestureDetectorCompat mGestureDetector;
     Mood mMood;
     DAO saveObj;
     private ConstraintLayout mRoot;
     private ImageView mSmiley;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             saveObj.saveFirstDate();
         }
 
+        //This gesture detector is use to capture the fling on the main screen to change the current mood
         mGestureDetector = new GestureDetectorCompat(this, this);
         mRoot.setOnTouchListener(new View.OnTouchListener() {
             @Override

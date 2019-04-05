@@ -4,10 +4,6 @@ public class MoodPojo {
     private Mood dailyMood;
     private String message;
 
-    public void setDailyMood(Mood dailyMood) {
-        this.dailyMood = dailyMood;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }

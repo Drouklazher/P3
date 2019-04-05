@@ -19,7 +19,6 @@ import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class FullHistoryActivity extends AppCompatActivity {
-    private DAO mDAO;
     private PieChartView mChart;
 
     @Override
@@ -27,7 +26,7 @@ public class FullHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_history);
         mChart = findViewById(R.id.fullHistory_pcv);
-        mDAO = new DAO(this);
+        DAO mDAO = new DAO(this);
         updateChart(mDAO.retieveAllProportionMap());
         final Button mButtonBack = findViewById(R.id.fullHistory_but_Back);
         mButtonBack.setOnClickListener(new View.OnClickListener() {
@@ -37,14 +36,25 @@ public class FullHistoryActivity extends AppCompatActivity {
                 startActivity(fullHistoryActivity);
             }
         });
+        final Button mButtonLabels = findViewById(R.id.fullHistory_but_Labels);
+        mButtonLabels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PieChartData pieChartData = mChart.getPieChartData();
+                pieChartData.setHasLabels(true);
+                mChart.setPieChartData(pieChartData);
+            }
+        });
     }
 
     private void updateChart(HashMap<Mood,Integer> colorsOccurence){
         List<SliceValue> pieData = new ArrayList<>();
-        for (HashMap.Entry entry:colorsOccurence.entrySet()){
-            int color = getResources().getColor(((Mood) entry.getKey()).getColorRes());
-            int proportion = (int) entry.getValue();
-            pieData.add(new SliceValue(proportion,color));
+        for (HashMap.Entry<Mood,Integer> entry:colorsOccurence.entrySet()){
+            int color = getResources().getColor((entry.getKey()).getColorRes());
+            int proportion = entry.getValue();
+            String moodName = getString(entry.getKey().getName());
+
+            pieData.add(new SliceValue(proportion,color).setLabel( moodName));
         }
         PieChartData pieChartData = new PieChartData(pieData);
         mChart.setPieChartData(pieChartData);

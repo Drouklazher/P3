@@ -22,8 +22,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/fullHistory_but_Labels"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".125"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".5"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/fullHistory_but_Labels"
+        android:text="@string/show_labels"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/fullHistory_but_Back"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent=".125"/>
 

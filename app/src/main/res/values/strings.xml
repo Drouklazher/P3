@@ -4,10 +4,14 @@
     <string name="no_mood">No mood </string>
     <string name="back">Back</string>
     <string name="full_history">Full History</string>
-    <!--<string name="numbers_days">%d days ago</string>-->
     <plurals name="numbers_days">
         <item quantity="one">yesterday</item>
-        <item quantity="two">%d days ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
+    <string name="show_labels">Show mood name</string>
+    <string name="happy">happy</string>
+    <string name="super_happy">super happy</string>
+    <string name="normal">normal</string>
+    <string name="disappointed">disappointed</string>
+    <string name="sad">sad</string>
 </resources>

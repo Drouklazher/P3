@@ -1,16 +1,11 @@
 package com.josse.emile.p3.controller;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
@@ -21,27 +16,23 @@ import com.josse.emile.p3.R;
 import com.josse.emile.p3.model.DAO;
 import com.josse.emile.p3.model.MoodPojo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class HistoryActivity extends AppCompatActivity {
     private ConstraintLayout mRoot;
-    private DAO mDAO ;
-    private List<String> mMoodMessageList;
-    private List<Integer> mDaysDifList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         mRoot = findViewById(R.id.history_cl_main);
-        mDAO = new DAO(this);
-        mMoodMessageList = new ArrayList<>();
-        mDaysDifList = new ArrayList<>();
-        mDaysDifList = mDAO.retrieveSevenLastMoodsDayDif();
-        updateHistory(mDAO.retrieveSevenLastMoods());
+        DAO mDAO = new DAO(this);
+        TreeMap<Integer,MoodPojo> sevenLastMoods = mDAO.retrieveSevenLastMoods();
+        updateHistory(sevenLastMoods);
         final Button mButtonBack = findViewById(R.id.history_but_back);
         final Button mButtonFullHistory = findViewById(R.id.history_but_fullHistory);
+        //the back button is here just to allow the user without extra button to go back
         mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,19 +50,20 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
-    private void updateHistory(List<MoodPojo> sevenMoods){
-        for (int i = 0; i < mRoot.getChildCount() - 2 && i < sevenMoods.size(); i++) {//-2 because we don't want to iterate on the buttonw wich are also childs of the constraint layout
-
-            MoodPojo moodPojo;
+    //the moods are display in the order of the treeMap
+    private void updateHistory(TreeMap<Integer,MoodPojo> sevenMoods){
+        int i = 0;
+        for (Map.Entry<Integer,MoodPojo> entry:sevenMoods.entrySet()){
+            if (i >= mRoot.getChildCount()-2){
+                break;
+            }
             AppCompatTextView textView = (AppCompatTextView)mRoot.getChildAt(i);
-            moodPojo = sevenMoods.get(i);
-            mMoodMessageList.add(moodPojo.getMessage());
-            displayMood(moodPojo, textView, i, mDaysDifList.get(i));
-
+            displayMood(entry.getValue(),textView,entry.getKey());
+            i++;
         }
     }
 
-    private void displayMood(MoodPojo mood, TextView moodLine,final int messageIndex, int texNbDays){
+    private void displayMood(final MoodPojo mood, TextView moodLine, int texNbDays){
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(mRoot);
             moodLine.setBackgroundColor( getResources().getColor(mood.getDailyMood().getColorRes()));
@@ -83,7 +75,7 @@ public class HistoryActivity extends AppCompatActivity {
             moodLine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(HistoryActivity.this, mMoodMessageList.get(messageIndex),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HistoryActivity.this, mood.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
         }
